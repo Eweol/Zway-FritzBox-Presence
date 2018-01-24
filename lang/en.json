@@ -1,0 +1,15 @@
+{
+   "m_descr" : "Module to set presence switch according to connection state on FritzBox.<br>Check <a href=https://github.com/Eweol/Zway-FritzBox-Presence/>github.com/Eweol/Zway-FritzBox-Presence/</a> for detailed documentation.",
+   "m_title" : "FritzBox Presence",
+   "device_name_label" : "Which device name present you Presence:",
+   "request_interval" : "Intervales between 2 consecutive request's: (in minutes)",
+   "l_dev" : "Presence virtual device to control:",
+   "title_FritzBox" : "FritzBox Presence",
+   "device_name_helper": "Name of device in your Fritzbox witch show you are present or not.",
+   "fritz_ip_label" : "ip-address FritzBox:",
+   "fritz_ip_helper": "The ip-address of your FritzBox. (If field is empty, 'fritz.box' would be used)",
+   "fritz_user_label" : "Username:",
+   "fritz_user_helper": "Username for FritzBox-Login.",
+   "fritz_pw_label" : "Passwort:",
+   "fritz_pw_helper": "Passwort for FritzBox-User."
+}

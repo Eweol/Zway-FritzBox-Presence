@@ -1,0 +1,96 @@
+{
+        "author": "Lukas Frensel",
+        "category": "automation_basic",
+        "defaults": {
+                "description": "__m_descr__",
+                "title": "__m_title__",
+                "device": "",
+                "requestInterval": 1
+        },
+        "dependencies": [
+                "Presence",
+                "Cron",
+                "BaseModule"
+        ],
+        "homepage": "https://github.com/Nander2/Zway-FritzBox/",
+        "icon": "icon.png",
+        "maturity": "beta",
+        "moduleName": "FritzBoxPresence",
+        "options": {
+                "fields": {
+                        "fritzIp": {
+                                "helper": "__fritz_ip_helper__",
+                                "label": "__fritz_ip_label__",
+                                "order": 1,
+                                "type":"ipv4"
+                        },
+                        "fritzUser": {
+                                "helper": "__fritz_user_helper__",
+                                "label": "__fritz_user_label__",
+                                "order": 2
+                        },
+                        "fritzPw": {
+                                "helper": "__fritz_pw_helper__",
+                                "label": "__fritz_pw_label__",
+                                "order": 3,
+                                "type": "password"
+                        },
+                        "deviceName": {
+                                "helper": "__device_name_helper__",
+                                "label": "__device_name_label__",
+                                "order": 4
+                        },
+                        "device": {
+                                "label": "__l_dev__",
+                                "datasource": "namespaces",
+                                "field": "optionLabels",
+                                "optionLabels": "namespaces:devices_switchBinary:deviceName",
+                                "order": 6
+                        },
+                        "requestInterval": {
+                                "label": "__request_interval__",
+                                "order": 5,
+                                "type": "integer"
+                        }
+                }
+        },
+        "repository": {
+                "source": "https://github.com/Nander2/Zway-FritzBox/",
+                "type": "git"
+        },
+        "schema": {
+                "properties": {
+                        "device": {
+                                "field": "enum",
+                                "datasource": "namespaces",
+                                "enum": "namespaces:devices_switchBinary:deviceId",
+                                "required": true
+                        },
+                        "requestInterval": {
+                                "type": "integer",
+                                "required": true
+                        },
+                        "deviceName": {
+                                "type": "string",
+                                "required": true
+                        },
+                        "fritzIp": {
+                                "format": "ip-address",
+                                "type": "string",
+                                "required": true
+                        },
+                        "fritzUser": {
+                                "type": "string",
+                                "required": true
+                        },
+                        "fritzPw": {
+                                "type": "string",
+                                "required": true
+                        }
+                },
+                "required": true,
+                "type": "object"
+        },
+        "singleton": false,
+        "version": 0.5
+}

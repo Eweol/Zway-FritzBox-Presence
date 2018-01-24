@@ -1,0 +1,15 @@
+{
+    "m_descr" : "Ein Modul, um einen Anwesenheitsschalter zu setzen, abhängig ob ein Gerät an der FritzBox angemeldet ist oder nicht.<br>Check <a href=https://github.com/Nander2/Zway-FritzBox/>github.com/Nander2/Zway-FritzBox/</a> for detailed documentation.",
+    "m_title" : "FritzBox Anwesenheit",
+    "request_interval" : "Intervall zwischen zwei Anfragen: (in Minuten)",
+    "l_dev" : "Schalter der anzeigt, das Sie anwesend sind:",
+    "title_FritzBox" : "FritzBox Anwesenheit",
+    "device_name_label" : "Welches Gerät zeigt, das Sie anwesend sind:",
+    "device_name_helper": "Der Name des Gerätes, welches anzeigt, das Sie anwesen sind oder nicht.",
+    "fritz_ip_label" : "IP Adresse Ihrer FritzBox:",
+    "fritz_ip_helper": "Die IP Adresse der FritzBox. (Wenn nicht angegeben wird 'fritz.box' verwendet)",
+    "fritz_user_label" : "Benutzername:",
+    "fritz_user_helper": "Der Benutzername mit der Sie sich an Ihrer FritzBox anmelden.",
+    "fritz_pw_label" : "Passwort:",
+    "fritz_pw_helper": "Das Passwort zum FritzBox-Benutzer."
+ }
