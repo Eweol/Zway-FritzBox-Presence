@@ -12,7 +12,7 @@
                 "Cron",
                 "BaseModule"
         ],
-        "homepage": "https://github.com/Nander2/Zway-FritzBox/",
+        "homepage": "https://github.com/Eweol/Zway-FritzBox/",
         "icon": "icon.png",
         "maturity": "beta",
         "moduleName": "FritzBoxPresence",
