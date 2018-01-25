@@ -6,6 +6,8 @@ Version: 0.5
 Author: Lukas Frensel
 Description:
     Module to set presence switch according to connection state to FritzBox.
+Home:
+    https://github.com/Eweol/Zway-FritzBox-Presence/
 
 ******************************************************************************/
 
