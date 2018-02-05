@@ -477,7 +477,7 @@ FritzBoxPresence.prototype.init = function (config) {
 FritzBoxPresence.prototype.stop = function () {
 
     this.logoutSessionID();
-    this.controller.emit("cron.removeTask", "fritzBoxPresence"+self.device+".poll");
+    this.controller.emit("cron.removeTask", "fritzBoxPresence"+this.device+".poll");
     FritzBoxPresence.super_.prototype.stop.call(this);
 };
 
