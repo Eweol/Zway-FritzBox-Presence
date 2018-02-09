@@ -243,6 +243,7 @@ FritzBoxPresence.prototype.logoutSessionID = function()
 }
 FritzBoxPresence.prototype.GetResponse = function(challenge, kennwort)
 {
+    var self = this;
     return challenge + "-" + self.DecodeHex(crypto.md5(self.EncodeUTF16(challenge + "-" + kennwort)));
 }
 //Encode String in Unicode ByteArray
