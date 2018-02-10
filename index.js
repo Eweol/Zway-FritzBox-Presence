@@ -1,6 +1,6 @@
 /*** FritzBox Presence Z-Way module *******************************************
 
-Version: 0.7
+Version: 1.0.0
 (c) Lukas Frensel, 2018
 -----------------------------------------------------------------------------
 Author: Lukas Frensel
@@ -9,6 +9,10 @@ Description:
 Home:
     https://github.com/Eweol/Zway-FritzBox-Presence/
 
+ToDo:
+    Support IPV6 for Fritz!Box-IP
+    Support IPV6 for Device-IP
+
 ******************************************************************************/
 
 function FritzBoxPresence (id, controller) {
@@ -16,7 +20,11 @@ function FritzBoxPresence (id, controller) {
     FritzBoxPresence.super_.call(this, id, controller);
     this.dev_presence = false;
     this.sessionID = "0000000000000000";
-    this.device = "";
+    this.presenceDevice = "";
+    this.fritzUser = "";
+    this.fritzIp = "";
+    this.fritzPw = "";
+    this.type = "";
 }
 
 inherits(FritzBoxPresence, BaseModule);
@@ -31,8 +39,18 @@ FritzBoxPresence.prototype.init = function (config) {
     FritzBoxPresence.super_.prototype.init.call(this, config);
 	
     var self = this;
-    self.device = self.config['deviceName'];
-
+    self.presenceDevice = self.config['presenceDevice'];
+    self.fritzUser = self.config['fritzUser'];
+    self.fritzIp = self.config['fritzIp'];
+    self.fritzPw = self.config['fritzPw'];
+    if(!self.CheckDeviceString())
+    {
+        return;
+    }
+    self.EventHandler = function()
+    {
+        self.checkPresence();
+    }
 	self.controller.emit("cron.addTask", "fritzBoxPresence"+self.device+".poll", {
 		minute: [0,59,self.config['requestInterval']],
 		hour: null,
@@ -40,19 +58,18 @@ FritzBoxPresence.prototype.init = function (config) {
 		day: null,
 		month: null
     });
-    self.EventHandler = function()
-    {
-        self.checkPresence();
-    }
     controller.on("fritzBoxPresence"+self.device+".poll",self.EventHandler);	
 };
 
 FritzBoxPresence.prototype.stop = function () {
 
     var self = this;
-    self.logoutSessionID();		
-    controller.off("fritzBoxPresence"+self.device+".poll",self.EventHandler);
-    self.controller.emit("cron.removeTask", "fritzBoxPresence"+self.device+".poll");
+    self.logoutSessionID();	
+    if(self.EventHandler != undefined)
+    {	
+        controller.off("fritzBoxPresence"+self.device+".poll",self.EventHandler);
+        self.controller.emit("cron.removeTask", "fritzBoxPresence"+self.device+".poll");
+    }
     FritzBoxPresence.super_.prototype.stop.call(self);
 };
 
@@ -76,13 +93,13 @@ FritzBoxPresence.prototype.getSessionID = function()
 {
     var url = "";
     var self = this;
-    if(self.config['fritzIp'] == undefined)
+    if(self.fritzIp == undefined)
     {
         url = "fritz.box/login_sid.lua";
     }
     else
     {
-        url = self.config['fritzIp'] + "/login_sid.lua";
+        url = self.fritzIp + "/login_sid.lua";
     }
     var req = {
         url: url,
@@ -92,7 +109,7 @@ FritzBoxPresence.prototype.getSessionID = function()
             if (self.sessionID == "0000000000000000")
             {
                 var challenge = response.data.findOne("/SessionInfo/Challenge/text()");
-                url = url + "?username=" + self.config['fritzUser'] + "&response=" + self.GetResponse(challenge,self.config['fritzPw']);
+                url = url + "?username=" + self.fritzUser + "&response=" + self.GetResponse(challenge);
                 req=
                 {
                     url:url,
@@ -122,13 +139,13 @@ FritzBoxPresence.prototype.checkSessionID = function()
 {
     var url = "";
     var self = this;
-    if(self.config['fritzIp'] == undefined)
+    if(self.fritzIp == undefined)
     {
         url = "fritz.box/login_sid.lua?sid=" + self.sessionID;
     }
     else
     {
-        url = self.config['fritzIp'] + "/login_sid.lua?sid=" + self.sessionID;
+        url = self.fritzIp + "/login_sid.lua?sid=" + self.sessionID;
     }
     var req = {
         url: url,
@@ -156,25 +173,51 @@ FritzBoxPresence.prototype.GetData = function()
 {
     var url = "";
     var self = this;
-    if (self.config['fritzIp'] == undefined)
+    if (self.fritzIp == undefined)
     {
-        url = "fritz.box/data.lua?sid=" + self.sessionID;
+        url = "fritz.box/data.lua";
     }
     else
     {
-        url = self.config['fritzIp'] + "/data.lua?sid=" + self.sessionID;
+        url = self.fritzIp + "/data.lua";
     }
-    
     var req = 
     {
         url: url,
+        method: "POST",
+        headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+            "sid" : self.sessionID,
+            "lang" : "de",
+            "page" : "netDev"
+        },
         async: true,
         success: function(response) 
         {
             var xml = JSON.parse(response.data);
-            for(var i = 0; i < xml['data']['net']['devices'].length;i++)
+            for(var i = 0; i < xml['data']['active'].length;i++)
             {
-                if(xml['data']['net']['devices'][i]['name'] == self.device)
+                if(self.type == "mac" && xml['data']['active'][i]['mac'] == self.presenceDevice)
+                {
+                    self.dev_presence = true;
+                    self.updatePresence();
+                    return;
+                }
+                else if(self.type == "ipv6" != undefined && xml['data']['active'][i]['ipv6'] == self.presenceDevice)
+                {
+                    self.dev_presence = true;
+                    self.updatePresence();
+                    return;
+                }
+                else if(self.type == "ipv4" != undefined && xml['data']['active'][i]['ipv4'] == self.presenceDevice)
+                {
+                    self.dev_presence = true;
+                    self.updatePresence();
+                    return;
+                }
+                else if(self.type == "name" && xml['data']['active'][i]['name'] == self.presenceDevice)
                 {
                     self.dev_presence = true;
                     self.updatePresence();
@@ -187,6 +230,7 @@ FritzBoxPresence.prototype.GetData = function()
 		},
         error: function(response)
         {
+            console.log(data);
             self.log("Can not make request: " + response.statusText);
         } 
     };
@@ -220,13 +264,13 @@ FritzBoxPresence.prototype.logoutSessionID = function()
 {
     var url = "";
     var self = this;
-    if(self.config['fritzIp'] == undefined)
+    if(self.fritzIp == undefined)
     {
         url = "fritz.box/login_sid.lua?logout=1&sid=" + self.sessionID;
     }
     else
     {
-        url = self.config['fritzIp'] + "/login_sid.lua?logout=1&sid=" + self.sessionID;
+        url = self.fritzIp + "/login_sid.lua?logout=1&sid=" + self.sessionID;
     }
     var req = {
         url: url,
@@ -241,10 +285,10 @@ FritzBoxPresence.prototype.logoutSessionID = function()
         };
     http.request(req);
 }
-FritzBoxPresence.prototype.GetResponse = function(challenge, kennwort)
+FritzBoxPresence.prototype.GetResponse = function(challenge)
 {
     var self = this;
-    return challenge + "-" + self.DecodeHex(crypto.md5(self.EncodeUTF16(challenge + "-" + kennwort)));
+    return challenge + "-" + self.DecodeHex(crypto.md5(self.EncodeUTF16(challenge + "-" + self.fritzPw)));
 }
 //Encode String in Unicode ByteArray
 FritzBoxPresence.prototype.EncodeUTF16 = function(string) 
@@ -270,4 +314,67 @@ FritzBoxPresence.prototype.DecodeHex = function(arraybuffer)
       hexParts.push(paddedHex);
     }
     return hexParts.join('');
+}
+//Check is device-string MAC-address or IP-address or device-name
+FritzBoxPresence.prototype.CheckDeviceString = function() 
+{ 
+    self = this;
+    if(self.presenceDevice != undefined)
+    {
+        if(self.checkIsMAC())
+        {
+            self.log(self.presenceDevice + " is mac address");
+            self.type = "mac";
+            return true;
+        }
+        else if(self.checkIsIPV6())
+        {
+            self.log(self.presenceDevice + " is ipv6 address");
+            self.type = "ipv6";
+            return true;
+        }
+        else if(self.checkIsIPV4())
+        {
+            self.log(self.presenceDevice + " is ipv4 address");
+            self.type = "ipv4";
+            return true;
+        }
+        else
+        {
+            self.log(self.presenceDevice + " is device name");
+            self.type = "name"
+            return true;
+        }
+    }
+    return false;
+}
+//Check is MAC-address
+FritzBoxPresence.prototype.checkIsMAC = function() 
+{
+    self = this;
+    var blocks = self.presenceDevice.split(":");
+    if(blocks.length === 6) {
+      return blocks.every(function(block) {
+        return block.length === 2;
+      });
+    }
+    return false;
+}
+//Check is IPV4-address
+FritzBoxPresence.prototype.checkIsIPV4 = function() 
+{
+    self = this;
+    var blocks = self.presenceDevice.split(".");
+    if(blocks.length === 4) {
+      return blocks.every(function(block) {
+        return parseInt(block,10) >=0 && parseInt(block,10) <= 255;
+      });
+    }
+    return false;
+}
+//Check is IPV6-address
+FritzBoxPresence.prototype.checkIsIPV6 = function() 
+{
+    //support for IPV6 came with later release
+    return false;
 }

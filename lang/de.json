@@ -1,15 +1,15 @@
 {
-    "m_descr" : "Ein Modul, um einen Anwesenheitsschalter zu setzen, abhängig ob ein Gerät an der FritzBox angemeldet ist oder nicht.<br>Check <a href=https://github.com/Nander2/Zway-FritzBox/>github.com/Nander2/Zway-FritzBox/</a> for detailed documentation.",
-    "m_title" : "FritzBox Anwesenheit",
+    "m_descr" : "Ein Modul, um einen Anwesenheitsschalter zu setzen, abhängig ob ein Gerät an der Fritz!Box angemeldet ist oder nicht. Dabei kann das Gerät über die MAC-Adresse, die IP-Adresse oder den in der Fritz!Box hinterlegten Gerätenamen identifiziert werden.<br>Check <a href=https://github.com/Eweol/Zway-FritzBox-Presence/>github.com/Eweol/Zway-FritzBox-Presence/</a> for detailed documentation.",
+    "m_title" : "Fritz!Box Anwesenheit",
     "request_interval" : "Intervall zwischen zwei Anfragen: (in Minuten)",
-    "l_dev" : "Schalter der anzeigt, das Sie anwesend sind:",
-    "title_FritzBox" : "FritzBox Anwesenheit",
-    "device_name_label" : "Welches Gerät zeigt, das Sie anwesend sind:",
-    "device_name_helper": "Der Name des Gerätes, welches anzeigt, das Sie anwesen sind oder nicht.",
-    "fritz_ip_label" : "IP Adresse Ihrer FritzBox:",
-    "fritz_ip_helper": "Die IP Adresse der FritzBox. (Wenn nicht angegeben wird 'fritz.box' verwendet)",
+    "l_dev" : "Schalter, welcher den Anwesenheitsstatus anzeigt:",
+    "title_FritzBox" : "Fritz!Box Anwesenheit",
+    "presence_device_label" : "Gerät welches zeigt, das Sie anwesend sind! [MAC-Adresse] oder [IP-Adresse] oder [Gerätename]:",
+    "presence_device_helper": "Die MAC-Adresse, IP-Adresse oder der Gerätename des Gerätes, welches anzeigt, das Sie anwesend sind oder nicht.",
+    "fritz_ip_label" : "IP Adresse Ihrer Fritz!Box:",
+    "fritz_ip_helper": "Die IP Adresse der Fritz!Box.",
     "fritz_user_label" : "Benutzername:",
-    "fritz_user_helper": "Der Benutzername mit der Sie sich an Ihrer FritzBox anmelden.",
+    "fritz_user_helper": "Der Benutzername mit dem Sie sich an Ihrer Fritz!Box anmelden.",
     "fritz_pw_label" : "Passwort:",
-    "fritz_pw_helper": "Das Passwort zum FritzBox-Benutzer."
+    "fritz_pw_helper": "Das Passwort zum Fritz!Box-Benutzer."
  }
