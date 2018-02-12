@@ -1,4 +1,4 @@
-Zway-FritzBox-Presence
+cZway-FritzBox-Presence
 
 This module manages presence modes according to connection status between FritzBox and device.
 Only support FRITZ!OS-Version >= 5.50.
