@@ -1,7 +1,7 @@
 /*** FritzBox Presence Z-Way module *******************************************
 
 Version: 1.0.0
-(c) Lukas Frensel, 2018
+(c) Eweol, 2018
 -----------------------------------------------------------------------------
 Author: Lukas Frensel
 Description:
