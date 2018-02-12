@@ -1,4 +1,4 @@
-cZway-FritzBox-Presence
+Zway-FritzBox-Presence
 
 This module manages presence modes according to connection status between FritzBox and device.
 Only support FRITZ!OS-Version >= 5.50.
@@ -11,7 +11,7 @@ Lets you specify a request intervals, FritzBox ip-address and FritzBox account-d
 Installation
 
 Isn't available in Zway-Store at this time. Copy all files and directories in "userModules/FritzBoxPresence" on you Zway device.
-Verification for Zway-Store is in process.
+Verification for Zway-Store is in proccess.
 
 License
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
