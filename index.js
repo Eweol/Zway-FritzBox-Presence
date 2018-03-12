@@ -1,6 +1,6 @@
 /*** FritzBox Presence Z-Way module *******************************************
 
-Version: 1.0.0
+Version: 1.1.0
 (c) Lukas Frensel, 2018
 -----------------------------------------------------------------------------
 Author: Lukas Frensel
@@ -25,6 +25,8 @@ function FritzBoxPresence (id, controller) {
     this.fritzIp = "";
     this.fritzPw = "";
     this.type = "";
+    this.intervall = undefined;
+    this.EventHandler = undefined;
 }
 
 inherits(FritzBoxPresence, BaseModule);
@@ -51,25 +53,14 @@ FritzBoxPresence.prototype.init = function (config) {
     {
         self.checkPresence();
     }
-	self.controller.emit("cron.addTask", "fritzBoxPresence"+self.device+".poll", {
-		minute: [0,59,self.config['requestInterval']],
-		hour: null,
-		weekDay: null,
-		day: null,
-		month: null
-    });
-    controller.on("fritzBoxPresence"+self.device+".poll",self.EventHandler);	
+    self.intervall = setInterval(self.EventHandler,1000 * 60 * self.config['requestInterval']);
 };
 
 FritzBoxPresence.prototype.stop = function () {
 
     var self = this;
     self.logoutSessionID();	
-    if(self.EventHandler != undefined)
-    {	
-        controller.off("fritzBoxPresence"+self.device+".poll",self.EventHandler);
-        self.controller.emit("cron.removeTask", "fritzBoxPresence"+self.device+".poll");
-    }
+    clearInterval(self.interval);
     FritzBoxPresence.super_.prototype.stop.call(self);
 };
 

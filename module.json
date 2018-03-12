@@ -50,9 +50,10 @@
                                 "order": 6
                         },
                         "requestInterval": {
-                                "label": "__request_interval__",
+                                "label": "__request_interval_label__",
+                                "helper": "__request_interval_helper__",
                                 "order": 5,
-                                "type": "integer"
+                                "type": "number"
                         }
                 }
         },
@@ -69,7 +70,7 @@
                                 "required": true
                         },
                         "requestInterval": {
-                                "type": "integer",
+                                "type": "number",
                                 "required": true
                         },
                         "presenceDevice": {
@@ -94,5 +95,5 @@
                 "type": "object"
         },
         "singleton": false,
-        "version": "1.0.0"
+        "version": "1.1.0"
 }

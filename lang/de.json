@@ -1,7 +1,8 @@
 {
     "m_descr" : "Ein Modul, um einen Anwesenheitsschalter zu setzen, abhängig ob ein Gerät an der Fritz!Box angemeldet ist oder nicht. Dabei kann das Gerät über die MAC-Adresse, die IP-Adresse oder den in der Fritz!Box hinterlegten Gerätenamen identifiziert werden.<br>Check <a href=https://github.com/Eweol/Zway-FritzBox-Presence/>github.com/Eweol/Zway-FritzBox-Presence/</a> for detailed documentation.",
     "m_title" : "Fritz!Box Anwesenheit",
-    "request_interval" : "Intervall zwischen zwei Anfragen: (in Minuten)",
+    "request_interval_label" : "Anfrage-Intervall: (in Minuten)",
+    "request_interval_helper" : "Intervall zwischen zwei Anfragen in Minuten (30 Sekunden = 0.5)! Achtung: Je kürzer das Abfrage-Intervall gewählt ist, desto größer wird der Datenverkehr im Netzwerk",
     "l_dev" : "Schalter, welcher den Anwesenheitsstatus anzeigt:",
     "title_FritzBox" : "Fritz!Box Anwesenheit",
     "presence_device_label" : "Gerät welches zeigt, das Sie anwesend sind! [MAC-Adresse] oder [IP-Adresse] oder [Gerätename]:",

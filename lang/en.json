@@ -1,7 +1,8 @@
 {
    "m_descr" : "Module to set presence switch according to connection state on Fritz!Box. You can use mac-address, ip-address or device-name to identify device in Fritz!Box.<br>Check <a href=https://github.com/Eweol/Zway-FritzBox-Presence/>github.com/Eweol/Zway-FritzBox-Presence/</a> for detailed documentation.",
    "m_title" : "Fritz!Box Presence",
-   "request_interval" : "Intervales between 2 consecutive request's: (in minutes)",
+   "request_interval_label" : "Request-Interval: (in minutes)",
+   "request_interval_helper" : "Interval between two request's in minutes (30 seconds = 0.5)! Attention: The network traffic will increase by cut down request interval",
    "l_dev" : "Presence virtual device to control:",
    "title_FritzBox" : "Fritz!Box Presence",
    "presence_device_label" : "Which device present you presence-state [mac-address] or [ip-address] or [device-name]:",

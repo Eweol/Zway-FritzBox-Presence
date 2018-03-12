@@ -10,8 +10,11 @@ Lets you specify a request intervals, FritzBox ip-address and FritzBox account-d
 
 Installation
 
-Isn't available in Zway-Store at this time. Copy all files and directories in "userModules/FritzBoxPresence" on you Zway device.
-Verification for Zway-Store is in process.
+Download from Z-Way Store
+
+Update 1.1.0
+
+Add ability to use requestInterval < 1 minute. (Use 0.5 minutes for 30 seconds)
 
 License
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
