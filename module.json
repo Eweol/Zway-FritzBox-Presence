@@ -4,9 +4,10 @@
         "defaults": {
                 "description": "__m_descr__",
                 "title": "__m_title__",
-                "device": "",
-                "presenceDevice" : "",
-                "fritzUser" : "admin",
+                "sensordevice": "",
+                "switchdevice": "",
+                "presenceDevice": "",
+                "fritzUser": "admin",
                 "requestInterval": 1
         },
         "dependencies": [
@@ -24,7 +25,7 @@
                                 "helper": "__fritz_ip_helper__",
                                 "label": "__fritz_ip_label__",
                                 "order": 1,
-                                "type":"ipv4"
+                                "type": "ipv4"
                         },
                         "fritzUser": {
                                 "helper": "__fritz_user_helper__",
@@ -42,18 +43,37 @@
                                 "label": "__presence_device_label__",
                                 "order": 4
                         },
-                        "device": {
-                                "label": "__l_dev__",
+                        "switchdevice": {
+                                "dependencies": {
+                                        "sensor_box": "false"
+                                },
+                                "label": "__l_swit_dev__",
                                 "datasource": "namespaces",
                                 "field": "optionLabels",
                                 "optionLabels": "namespaces:devices_switchBinary:deviceName",
-                                "order": 6
+                                "order": 7
+                        },
+                        "sensordevice": {
+                                "dependencies": {
+                                        "sensor_box": "true"
+                                },
+                                "label": "__l_sens_dev__",
+                                "datasource": "namespaces",
+                                "field": "optionLabels",
+                                "optionLabels": "namespaces:devices_sensorBinary:deviceName",
+                                "order": 8
                         },
                         "requestInterval": {
                                 "label": "__request_interval_label__",
                                 "helper": "__request_interval_helper__",
                                 "order": 5,
                                 "type": "number"
+                        },
+                        "sensor_box": {
+                                "rightLabel": "__title_sensor__",
+                                "helper": "__title_sensor_helper__",
+                                "order": 6,
+                                "type": "checkbox"
                         }
                 }
         },
@@ -63,10 +83,16 @@
         },
         "schema": {
                 "properties": {
-                        "device": {
+                        "switchdevice": {
                                 "field": "enum",
                                 "datasource": "namespaces",
                                 "enum": "namespaces:devices_switchBinary:deviceId",
+                                "required": true
+                        },
+                        "sensordevice": {
+                                "field": "enum",
+                                "datasource": "namespaces",
+                                "enum": "namespaces:devices_sensorBinary:deviceId",
                                 "required": true
                         },
                         "requestInterval": {
@@ -89,11 +115,19 @@
                         "fritzPw": {
                                 "type": "string",
                                 "required": true
+                        },
+                        "sensor_box": {
+                                "type": "boolean",
+                                "required": false
                         }
+                },
+                "dependencies": {
+                        "switchdevice": "sensor_box",
+                        "sensordevice": "sensor_box"
                 },
                 "required": true,
                 "type": "object"
         },
         "singleton": false,
-        "version": "1.1.0"
+        "version": "1.2.0"
 }

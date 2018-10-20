@@ -3,7 +3,8 @@
     "m_title" : "Fritz!Box Anwesenheit",
     "request_interval_label" : "Anfrage-Intervall: (in Minuten)",
     "request_interval_helper" : "Intervall zwischen zwei Anfragen in Minuten (30 Sekunden = 0.5)! Achtung: Je kürzer das Abfrage-Intervall gewählt ist, desto größer wird der Datenverkehr im Netzwerk",
-    "l_dev" : "Schalter, welcher den Anwesenheitsstatus anzeigt:",
+    "l_swit_dev" : "Schalter, welcher den Anwesenheitsstatus anzeigt:",
+    "l_sens_dev" : "Sensor, welcher den Anwesenheitsstatus anzeigt:",
     "title_FritzBox" : "Fritz!Box Anwesenheit",
     "presence_device_label" : "Gerät welches zeigt, das Sie anwesend sind! [MAC-Adresse] oder [IP-Adresse] oder [Gerätename]:",
     "presence_device_helper": "Die MAC-Adresse, IP-Adresse oder der Gerätename des Gerätes, welches anzeigt, das Sie anwesend sind oder nicht.",
@@ -12,5 +13,7 @@
     "fritz_user_label" : "Benutzername:",
     "fritz_user_helper": "Der Benutzername mit dem Sie sich an Ihrer Fritz!Box anmelden.",
     "fritz_pw_label" : "Passwort:",
-    "fritz_pw_helper": "Das Passwort zum Fritz!Box-Benutzer."
+    "fritz_pw_helper": "Das Passwort zum Fritz!Box-Benutzer.",
+    "title_sensor" : "Sensor/Schalter",
+    "title_sensor_helper" : "Check = Sensor, Uncheck = Schalter"
  }

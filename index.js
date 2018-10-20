@@ -1,6 +1,6 @@
 /*** FritzBox Presence Z-Way module *******************************************
 
-Version: 1.1.0
+Version: 1.2.0
 (c) Lukas Frensel, 2018
 -----------------------------------------------------------------------------
 Author: Lukas Frensel
@@ -181,7 +181,7 @@ FritzBoxPresence.prototype.GetData = function()
         },
         data: {
             "sid" : self.sessionID,
-            "lang" : "de",
+            "lang" : "en",
             "page" : "netDev"
         },
         async: true,
@@ -231,7 +231,15 @@ FritzBoxPresence.prototype.GetData = function()
 FritzBoxPresence.prototype.updatePresence = function()
 {
     var self = this;
-    var vDev = controller.devices.get(self.config.device);
+    var vDev;
+    if(self.config["sensor_box"])
+    {
+        vDev = controller.devices.get(self.config.sensordevice);
+    }
+    else
+    {
+        vDev = controller.devices.get(self.config.switchdevice);
+    }
     if (vDev)
     {
         var newStatus = 'off';
