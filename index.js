@@ -1,6 +1,6 @@
 /*** FritzBox Presence Z-Way module *******************************************
 
-Version: 1.2.0
+Version: 1.2.1
 (c) Lukas Frensel, 2018
 -----------------------------------------------------------------------------
 Author: Lukas Frensel
@@ -25,7 +25,7 @@ function FritzBoxPresence (id, controller) {
     this.fritzIp = "";
     this.fritzPw = "";
     this.type = "";
-    this.intervall = undefined;
+    this.interval = undefined;
     this.EventHandler = undefined;
 }
 
@@ -53,7 +53,7 @@ FritzBoxPresence.prototype.init = function (config) {
     {
         self.checkPresence();
     }
-    self.intervall = setInterval(self.EventHandler,1000 * 60 * self.config['requestInterval']);
+    self.interval = setInterval(self.EventHandler,1000 * 60 * self.config['requestInterval']);
 };
 
 FritzBoxPresence.prototype.stop = function () {
